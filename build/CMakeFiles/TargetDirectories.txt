@@ -1,0 +1,4 @@
+/home/zr/Desktop/Complex-Network-Project/build/CMakeFiles/rebuild_cache.dir
+/home/zr/Desktop/Complex-Network-Project/build/CMakeFiles/edit_cache.dir
+/home/zr/Desktop/Complex-Network-Project/build/CMakeFiles/app.dir
+/home/zr/Desktop/Complex-Network-Project/build/CMakeFiles/NetWork.dir
