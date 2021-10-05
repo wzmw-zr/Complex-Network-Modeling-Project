@@ -50,6 +50,7 @@ target_include_directories(MainWindow
 add_executable(app 
     ${PROJECT_SOURCE_DIR}/src/main.cpp
     ${PROJECT_SOURCE_DIR}/mainwindow.ui
+    ${PROJECT_SOURCE_DIR}/qdarkstyle/light/style.qrc
 )
 
 target_link_libraries(app PUBLIC NetWork MainWindow Qt5::Widgets Qt5::Core Qt5::Gui ${CMAKE_THREAD_LIBS_INIT})

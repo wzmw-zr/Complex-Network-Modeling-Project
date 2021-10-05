@@ -1,4 +1,6 @@
 #include <QApplication>
+#include <QFile>
+#include <QTextStream>
 #include "mainwindow.h"
 
 int main(int argc, char **argv) {
@@ -8,6 +10,12 @@ int main(int argc, char **argv) {
     Py_Initialize();
     PyRun_SimpleString("import matplotlib.pyplot as plt");
     QApplication app(argc, argv);
+    QFile f("../qdarkstyle/light/style.qss");
+    if (!f.exists()) printf("unable to find file!\n");
+    else printf("Find file\n");
+    f.open(QFile::ReadOnly | QFile::Text);
+    QTextStream ts(&f);
+    app.setStyleSheet(ts.readAll());
     // MainWindow window;
     // Ui::Form ui;
     mainwindow window;
