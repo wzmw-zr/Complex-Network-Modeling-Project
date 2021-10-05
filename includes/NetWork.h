@@ -8,6 +8,7 @@
 #ifndef _NETWORK_H
 #define _NETWORK_H
 
+#include "Python.h"
 #include <iostream>
 #include <sstream>
 #include <fstream>
@@ -47,10 +48,12 @@ struct UnionSet {
 
 struct Node {
     int id;
+    int x;
+    int y;
     unordered_set<int> next;
 
     Node() = default;
-    Node(int id) : id(id), next(unordered_set<int>()) {}
+    Node(int ind);
 };
 
 struct NetWork {
@@ -67,7 +70,9 @@ struct NetWork {
 
     int num_nodes();
     int num_edges();
+    int node_degree(int id);
     double average_degree();
+    int max_degree();
     vector<PII> degree_distribution();
     void dijstra(int id, vector<vector<int>> &dis);
     void bfs(int id, vector<vector<int>> &dis);
@@ -75,16 +80,20 @@ struct NetWork {
     double cluster_coefficient_node(int id);
     double cluster_coefficient_graph();
     void remove_k_degree_nodes(int k, unordered_map<int, Node> &graph, vector<int> &coreness, int &rest);
+    int coreness_of_node(int id);
     int coreness_of_graph();
     void attack(unordered_map<int, Node> &graph, int id);
     NetWork random_attack(int percent);
-    NetWork intentional_attack();
+    // TODO: add attack mode like `attack cetain degree` or `attack certain coreness`
+    NetWork intentional_attack(int degree);
     #if 0
     int tarjan_scc(int ind);
     int number_of_scc();
     #endif
     int get_id_upper_bound();
-    int nodes_in_largest_scc();
+    tuple<int, int> number_of_scc_and_nodes_in_largest_scc();
+    void draw_network(string s);
+    void draw_degree_distribution(string s);
 };
 
 

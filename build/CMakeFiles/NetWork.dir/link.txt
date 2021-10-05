@@ -1,2 +1,0 @@
-/usr/bin/ar qc libNetWork.a CMakeFiles/NetWork.dir/src/NetWork.cpp.o
-/usr/bin/ranlib libNetWork.a
