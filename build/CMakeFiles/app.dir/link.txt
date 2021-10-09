@@ -1,0 +1,1 @@
+/usr/bin/c++ CMakeFiles/app.dir/app_autogen/mocs_compilation.cpp.o CMakeFiles/app.dir/src/main.cpp.o CMakeFiles/app.dir/app_autogen/2TMTNEW4SK/qrc_style.cpp.o -o app  libNetWork.a libMainWindow.a libAttackWindow.a libNetWork.a /usr/lib/libpython3.9.so /usr/lib/libQt5Widgets.so.5.15.2 /usr/lib/libQt5Gui.so.5.15.2 /usr/lib/libQt5Core.so.5.15.2 

@@ -6,33 +6,238 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1286</width>
-    <height>618</height>
+    <width>1450</width>
+    <height>853</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <widget class="QWidget" name="formLayoutWidget">
+  <widget class="QLabel" name="image_area">
    <property name="geometry">
     <rect>
-     <x>240</x>
-     <y>40</y>
-     <width>321</width>
-     <height>321</height>
+     <x>640</x>
+     <y>50</y>
+     <width>800</width>
+     <height>500</height>
     </rect>
    </property>
-   <layout class="QFormLayout" name="formLayout">
-    <property name="labelAlignment">
-     <set>Qt::AlignCenter</set>
-    </property>
-    <property name="formAlignment">
-     <set>Qt::AlignCenter</set>
-    </property>
-    <item row="0" column="0">
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QWidget" name="">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>20</y>
+     <width>580</width>
+     <height>791</height>
+    </rect>
+   </property>
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="11" column="6" colspan="4">
+     <widget class="QPushButton" name="button_node_coreness">
+      <property name="text">
+       <string>输出</string>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="0" colspan="2">
+     <widget class="QLabel" name="label_degree_distribution">
+      <property name="text">
+       <string>度数分布</string>
+      </property>
+     </widget>
+    </item>
+    <item row="8" column="2" colspan="3">
+     <widget class="QSpinBox" name="cs_node_id">
+      <property name="minimum">
+       <number>1</number>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="10" colspan="3">
+     <spacer name="horizontalSpacer_8">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>40</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="12" column="0" colspan="4">
+     <widget class="QLabel" name="label_corness">
+      <property name="text">
+       <string>计算图的corness</string>
+      </property>
+     </widget>
+    </item>
+    <item row="8" column="11" colspan="6">
+     <widget class="QLineEdit" name="node_cs"/>
+    </item>
+    <item row="15" column="5" colspan="8">
+     <widget class="QLineEdit" name="diameter"/>
+    </item>
+    <item row="16" column="0" colspan="4">
+     <widget class="QPushButton" name="button_scc">
+      <property name="text">
+       <string>计算连通分量</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="4" colspan="8">
+     <widget class="QLineEdit" name="edge_number"/>
+    </item>
+    <item row="6" column="15">
+     <spacer name="horizontalSpacer_9">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>40</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="0" column="0" colspan="2">
      <widget class="QLabel" name="label_dataset">
       <property name="text">
        <string>选择数据集</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="15">
+     <spacer name="horizontalSpacer_11">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>40</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="10" column="0" colspan="3">
+     <widget class="QLabel" name="label_2">
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>计算coreness：</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="12" colspan="3">
+     <spacer name="horizontalSpacer_6">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>40</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="12" column="11" colspan="5">
+     <widget class="QLineEdit" name="graph_coreness"/>
+    </item>
+    <item row="14" column="5" colspan="8">
+     <widget class="QLineEdit" name="average_path_length"/>
+    </item>
+    <item row="3" column="0" colspan="3">
+     <widget class="QLabel" name="label_3">
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>计算Degree：</string>
+      </property>
+     </widget>
+    </item>
+    <item row="17" column="5" colspan="8">
+     <widget class="QLineEdit" name="scc_number"/>
+    </item>
+    <item row="6" column="4" colspan="2">
+     <widget class="QPushButton" name="button_avg_degree">
+      <property name="text">
+       <string>输出</string>
+      </property>
+     </widget>
+    </item>
+    <item row="18" column="0" colspan="4">
+     <widget class="QLabel" name="label_largest_scc">
+      <property name="text">
+       <string>最大连通分量节点数</string>
+      </property>
+     </widget>
+    </item>
+    <item row="8" column="0" colspan="2">
+     <widget class="QLabel" name="label_5">
+      <property name="text">
+       <string>选择节点</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="9" colspan="4">
+     <widget class="QPushButton" name="button_draw_network">
+      <property name="text">
+       <string>绘制网络图</string>
+      </property>
+     </widget>
+    </item>
+    <item row="11" column="2" colspan="3">
+     <widget class="QSpinBox" name="coreness_node_id">
+      <property name="minimum">
+       <number>1</number>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="11" colspan="5">
+     <widget class="QLineEdit" name="node_degree"/>
+    </item>
+    <item row="11" column="11" colspan="6">
+     <widget class="QLineEdit" name="node_coreness"/>
+    </item>
+    <item row="15" column="0" colspan="2">
+     <widget class="QLabel" name="label_diameter">
+      <property name="text">
+       <string>直径</string>
+      </property>
+     </widget>
+    </item>
+    <item row="9" column="11" colspan="6">
+     <widget class="QLineEdit" name="graph_cs"/>
+    </item>
+    <item row="9" column="6" colspan="4">
+     <widget class="QPushButton" name="button_graph_cs">
+      <property name="text">
+       <string>输出</string>
+      </property>
+     </widget>
+    </item>
+    <item row="8" column="6" colspan="4">
+     <widget class="QPushButton" name="button_node_cs">
+      <property name="text">
+       <string>输出</string>
       </property>
      </widget>
     </item>
@@ -43,6 +248,95 @@
       </property>
      </widget>
     </item>
+    <item row="17" column="0" colspan="2">
+     <widget class="QLabel" name="label_scc_number">
+      <property name="text">
+       <string>连通分量数</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="12" colspan="3">
+     <spacer name="horizontalSpacer_7">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>40</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="1" column="4" colspan="8">
+     <widget class="QLineEdit" name="node_number"/>
+    </item>
+    <item row="12" column="6" colspan="4">
+     <widget class="QPushButton" name="button_graph_coreness">
+      <property name="text">
+       <string>输出</string>
+      </property>
+     </widget>
+    </item>
+    <item row="6" column="8" colspan="7">
+     <widget class="QLineEdit" name="average_degree"/>
+    </item>
+    <item row="4" column="2" colspan="3">
+     <widget class="QSpinBox" name="degree_node_id">
+      <property name="minimum">
+       <number>1</number>
+      </property>
+     </widget>
+    </item>
+    <item row="11" column="0" colspan="2">
+     <widget class="QLabel" name="label_7">
+      <property name="text">
+       <string>选择节点</string>
+      </property>
+     </widget>
+    </item>
+    <item row="7" column="0" colspan="7">
+     <widget class="QLabel" name="label">
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>计算clustering coefficient：</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="6" colspan="4">
+     <widget class="QPushButton" name="button_node_degree">
+      <property name="text">
+       <string>输出</string>
+      </property>
+     </widget>
+    </item>
+    <item row="14" column="0" colspan="2">
+     <widget class="QLabel" name="label_average_path_length">
+      <property name="text">
+       <string>平均路径长度</string>
+      </property>
+     </widget>
+    </item>
+    <item row="6" column="0" colspan="2">
+     <widget class="QLabel" name="label_average_degree">
+      <property name="text">
+       <string>平均度数</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="0" colspan="2">
+     <widget class="QLabel" name="label_6">
+      <property name="text">
+       <string>选择节点</string>
+      </property>
+     </widget>
+    </item>
     <item row="1" column="0">
      <widget class="QLabel" name="label_node_number">
       <property name="text">
@@ -50,148 +344,124 @@
       </property>
      </widget>
     </item>
-    <item row="3" column="0">
-     <widget class="QLabel" name="label_average_degree">
-      <property name="text">
-       <string>平均度数</string>
-      </property>
-     </widget>
+    <item row="18" column="5" colspan="8">
+     <widget class="QLineEdit" name="largest_scc"/>
     </item>
-    <item row="4" column="0">
-     <widget class="QLabel" name="label_average_path_length">
-      <property name="text">
-       <string>平均路径长度</string>
-      </property>
-     </widget>
-    </item>
-    <item row="5" column="0">
-     <widget class="QLabel" name="label_diameter">
-      <property name="text">
-       <string>直径</string>
-      </property>
-     </widget>
-    </item>
-    <item row="6" column="0">
-     <widget class="QLabel" name="label_clustering_coefficient">
-      <property name="text">
-       <string>clustering coefficient</string>
-      </property>
-     </widget>
-    </item>
-    <item row="7" column="0">
-     <widget class="QLabel" name="label_corness">
-      <property name="text">
-       <string>corness</string>
-      </property>
-     </widget>
-    </item>
-    <item row="8" column="0">
-     <widget class="QLabel" name="label_scc_number">
-      <property name="text">
-       <string>连通分量数</string>
-      </property>
-     </widget>
-    </item>
-    <item row="9" column="0">
-     <widget class="QLabel" name="label_largest_scc">
-      <property name="text">
-       <string>最大连通分量节点数</string>
-      </property>
-     </widget>
-    </item>
-    <item row="10" column="0">
-     <widget class="QLabel" name="label_degree_distribution">
-      <property name="text">
-       <string>度数分布</string>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="1">
-     <widget class="QPushButton" name="Search_Dataset">
+    <item row="0" column="2" colspan="6">
+     <widget class="QPushButton" name="button_search_dataset">
       <property name="text">
        <string>Search</string>
       </property>
      </widget>
     </item>
-    <item row="1" column="1">
-     <widget class="QLabel" name="node_number">
+    <item row="9" column="0" colspan="6">
+     <widget class="QLabel" name="label_clustering_coefficient">
       <property name="text">
-       <string>0</string>
+       <string>计算图的clustering coefficient</string>
       </property>
      </widget>
     </item>
-    <item row="2" column="1">
-     <widget class="QLabel" name="edge_number">
+    <item row="9" column="17">
+     <spacer name="horizontalSpacer_10">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>40</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="18" column="15">
+     <spacer name="horizontalSpacer_3">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>38</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="17" column="14" colspan="2">
+     <spacer name="horizontalSpacer_2">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>40</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="15" column="15">
+     <spacer name="horizontalSpacer_5">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>40</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="14" column="15">
+     <spacer name="horizontalSpacer_4">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>40</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="12" column="16" colspan="2">
+     <spacer name="horizontalSpacer">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>40</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="13" column="0" colspan="6">
+     <widget class="QPushButton" name="button_path_diameter">
       <property name="text">
-       <string>0</string>
+       <string>计算平均最短路径与直径</string>
       </property>
      </widget>
     </item>
-    <item row="3" column="1">
-     <widget class="QLabel" name="average_degree">
+    <item row="5" column="3" colspan="5">
+     <widget class="QPushButton" name="button_degree_distribution">
       <property name="text">
-       <string>0</string>
-      </property>
-     </widget>
-    </item>
-    <item row="4" column="1">
-     <widget class="QLabel" name="average_path_length">
-      <property name="text">
-       <string>0</string>
-      </property>
-     </widget>
-    </item>
-    <item row="5" column="1">
-     <widget class="QLabel" name="diameter">
-      <property name="text">
-       <string>0</string>
-      </property>
-     </widget>
-    </item>
-    <item row="6" column="1">
-     <widget class="QLabel" name="clustering_coefficient">
-      <property name="text">
-       <string>0</string>
-      </property>
-     </widget>
-    </item>
-    <item row="7" column="1">
-     <widget class="QLabel" name="coreness">
-      <property name="text">
-       <string>0</string>
-      </property>
-     </widget>
-    </item>
-    <item row="8" column="1">
-     <widget class="QLabel" name="scc_number">
-      <property name="text">
-       <string>0</string>
-      </property>
-     </widget>
-    </item>
-    <item row="9" column="1">
-     <widget class="QLabel" name="largest_scc">
-      <property name="text">
-       <string>0</string>
-      </property>
-     </widget>
-    </item>
-    <item row="10" column="1">
-     <widget class="QPushButton" name="Degree_Distribution">
-      <property name="text">
-       <string>Show</string>
+       <string>显示度数分布</string>
       </property>
      </widget>
     </item>
    </layout>
   </widget>
-  <widget class="QWidget" name="horizontalLayoutWidget">
+  <widget class="QWidget" name="">
    <property name="geometry">
     <rect>
-     <x>240</x>
-     <y>390</y>
-     <width>321</width>
-     <height>51</height>
+     <x>761</x>
+     <y>620</y>
+     <width>260</width>
+     <height>36</height>
     </rect>
    </property>
    <layout class="QHBoxLayout" name="horizontalLayout">
@@ -203,7 +473,7 @@
      </widget>
     </item>
     <item>
-     <widget class="QLineEdit" name="random_attack_percent"/>
+     <widget class="QSpinBox" name="random_attack_percent"/>
     </item>
     <item>
      <widget class="QLabel" name="label_percentage">
@@ -213,7 +483,7 @@
      </widget>
     </item>
     <item>
-     <widget class="QPushButton" name="random_attack">
+     <widget class="QPushButton" name="button_random_attack">
       <property name="text">
        <string>Attack</string>
       </property>
@@ -221,13 +491,13 @@
     </item>
    </layout>
   </widget>
-  <widget class="QWidget" name="horizontalLayoutWidget_2">
+  <widget class="QWidget" name="">
    <property name="geometry">
     <rect>
-     <x>240</x>
-     <y>460</y>
-     <width>321</width>
-     <height>51</height>
+     <x>761</x>
+     <y>690</y>
+     <width>309</width>
+     <height>36</height>
     </rect>
    </property>
    <layout class="QHBoxLayout" name="horizontalLayout_2">
@@ -239,7 +509,7 @@
      </widget>
     </item>
     <item>
-     <widget class="QLineEdit" name="intentional_attack_number"/>
+     <widget class="QSpinBox" name="intentional_attack_degree"/>
     </item>
     <item>
      <widget class="QLabel" name="degree">
@@ -249,7 +519,7 @@
      </widget>
     </item>
     <item>
-     <widget class="QPushButton" name="intentional_attack">
+     <widget class="QPushButton" name="button_intentional_attack">
       <property name="text">
        <string>Attack</string>
       </property>
