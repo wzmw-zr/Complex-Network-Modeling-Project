@@ -1,2 +1,0 @@
-/usr/bin/ar qc libAttackWindow.a CMakeFiles/AttackWindow.dir/AttackWindow_autogen/mocs_compilation.cpp.o CMakeFiles/AttackWindow.dir/attack_ui.cpp.o
-/usr/bin/ranlib libAttackWindow.a

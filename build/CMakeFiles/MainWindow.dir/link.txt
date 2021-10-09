@@ -1,2 +1,0 @@
-/usr/bin/ar qc libMainWindow.a CMakeFiles/MainWindow.dir/MainWindow_autogen/mocs_compilation.cpp.o CMakeFiles/MainWindow.dir/mainwindow.cpp.o
-/usr/bin/ranlib libMainWindow.a

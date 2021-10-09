@@ -4,6 +4,7 @@
 
 + G++ 11.1.0
 + CMake 3.21.3
++ Qt 5.15.2
 + Python 3.9.7
 + matplotlib  3.3.3
 
