@@ -26,7 +26,7 @@
     <string/>
    </property>
   </widget>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
      <x>20</x>
@@ -112,19 +112,6 @@
        <string>选择数据集</string>
       </property>
      </widget>
-    </item>
-    <item row="0" column="15">
-     <spacer name="horizontalSpacer_11">
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>40</width>
-        <height>20</height>
-       </size>
-      </property>
-     </spacer>
     </item>
     <item row="10" column="0" colspan="3">
      <widget class="QLabel" name="label_2">
@@ -453,14 +440,21 @@
       </property>
      </widget>
     </item>
+    <item row="0" column="15">
+     <widget class="QPushButton" name="button_clear">
+      <property name="text">
+       <string>Clear</string>
+      </property>
+     </widget>
+    </item>
    </layout>
   </widget>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
      <x>761</x>
      <y>620</y>
-     <width>260</width>
+     <width>268</width>
      <height>36</height>
     </rect>
    </property>
@@ -473,7 +467,11 @@
      </widget>
     </item>
     <item>
-     <widget class="QSpinBox" name="random_attack_percent"/>
+     <widget class="QSpinBox" name="random_attack_percent">
+      <property name="maximum">
+       <number>100</number>
+      </property>
+     </widget>
     </item>
     <item>
      <widget class="QLabel" name="label_percentage">
@@ -491,11 +489,11 @@
     </item>
    </layout>
   </widget>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
-     <x>761</x>
-     <y>690</y>
+     <x>760</x>
+     <y>670</y>
      <width>309</width>
      <height>36</height>
     </rect>
@@ -526,6 +524,32 @@
      </widget>
     </item>
    </layout>
+  </widget>
+  <widget class="QPushButton" name="button_attack_largest_scc">
+   <property name="geometry">
+    <rect>
+     <x>760</x>
+     <y>720</y>
+     <width>271</width>
+     <height>34</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>绘制最大连通分量与攻击的关系图</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="button_attack_avg_path">
+   <property name="geometry">
+    <rect>
+     <x>760</x>
+     <y>760</y>
+     <width>271</width>
+     <height>34</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>绘制平均路径与攻击的关系图</string>
+   </property>
   </widget>
  </widget>
  <resources/>

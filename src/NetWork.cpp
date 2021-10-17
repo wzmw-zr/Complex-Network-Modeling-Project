@@ -32,14 +32,13 @@ int UnionSet::get(int x) {
 
 Node::Node(int id) : id(id), next(unordered_set<int>()) {
     // randomly generate the position of node
-    x = rand() % 10000;
-    y = rand() % 10000;
+    x = rand() % 1000000;
+    y = rand() % 1000000;
 }
 
 // Constructor of given path of file `@param path`
-// read data from file and construct the  network
+// read data from file and construct the  NetWork
 NetWork::NetWork(string path) : path(path), nodes(unordered_map<int, Node>()) {
-    srand(time(0));
     auto fin = fstream(path);
     for (int i = 0; i < 4; i++) {
         string s;
@@ -69,7 +68,7 @@ NetWork::NetWork(string path) : path(path), nodes(unordered_map<int, Node>()) {
     }
 }
 
-// Constructor of given network
+// Constructor of given NetWork
 NetWork::NetWork(unordered_map<int, Node> nodes) : path(""), nodes(nodes) {}
 
 int NetWork::num_nodes() { return nodes.size(); }
@@ -128,7 +127,7 @@ void NetWork::dijstra(int id, vector<vector<int>> &dis) {
 }
 
 void NetWork::bfs(int id, vector<vector<int>> &dis) {
-    std::cout << "id = " << id << std::endl;
+    // std::cout << "id = " << id << std::endl;
     int n = nodes.size();
     unordered_map<int, int> check;
     queue<PII> que;
@@ -147,11 +146,17 @@ void NetWork::bfs(int id, vector<vector<int>> &dis) {
     }
 }
 
-tuple<double, int> NetWork::average_path_length_and_diameter() {
+vector<vector<int>> NetWork::shortest_path_of_each_pair_nodes() {
     int n = 0;
     for (auto [id, node] : nodes) n = max(n, id + 1);
     vector<vector<int>> dis(n, vector<int>(n, INT32_MAX));
     for (auto [id, node] : nodes) bfs(id, dis);
+    return dis;
+}
+
+tuple<double, int> NetWork::average_path_length_and_diameter() {
+    auto dis = shortest_path_of_each_pair_nodes();
+    int n = dis.size();
     long sum = 0;
     int diameter = 0;
     int path_cnt = 0;
@@ -228,17 +233,9 @@ int NetWork::coreness_of_node(int ind) {
         k++;
     }
     return k - 2;
-    #if 0
-    for (auto [id, node] : graph) rest += node.next.size() ? 1 : 0;
-    while (rest) {
-        remove_k_degree_nodes(k, graph, coreness, rest);
-        k++;
-    }
-    return coreness[ind];
-    #endif
 }
 
-int NetWork::coreness_of_graph() {
+vector<int> NetWork::coreness_of_each_node() {
     int n = 0;
     for (auto [id, node] : nodes) n = max(n, id + 1);
     unordered_map<int, Node> graph = nodes;
@@ -249,6 +246,11 @@ int NetWork::coreness_of_graph() {
         remove_k_degree_nodes(k, graph, coreness, rest);
         k++;
     }
+    return coreness;
+}
+
+int NetWork::coreness_of_graph() {
+    vector<int> coreness = coreness_of_each_node();
     int ans = 0;
     for (int x : coreness) ans = max(ans, x);
     return ans;
@@ -259,22 +261,31 @@ void NetWork::attack(unordered_map<int, Node> &graph, int id) {
     graph.erase(id);
 }
 
+vector<int> NetWork::generate_random_nodes_id() {
+    int n = nodes.size();
+    vector<int> node_ids(n);
+    for (int i = 0; i < n; i++) node_ids[i] = i;
+    unsigned seed = std::chrono::system_clock::now().time_since_epoch().count ();
+    std::shuffle(node_ids.begin(), node_ids.end(), std::default_random_engine(seed));
+    return node_ids;
+}
+
+vector<int> NetWork::generate_intentional_nodes_id() {
+    int n = nodes.size();
+    vector<int> node_ids(n);
+    for (int i = 0; i < n; i++) node_ids[i] = i;
+    auto cmp = [&](int x, int y) {
+        return nodes[x].next.size() > nodes[y].next.size();
+    };
+    sort(node_ids.begin(), node_ids.end(), cmp);
+    return node_ids;
+}
+
 NetWork NetWork::random_attack(int percent) {
-    int mmax = 0;
-    for (auto [id, node] : nodes) mmax = max(mmax, id + 1);
-    vector<int> check(mmax, 0);
+    vector<int> random_node_ids = generate_random_nodes_id();
     int num_attack = nodes.size() * percent / 100;
     unordered_map<int, Node> graph = nodes;
-    vector<int> nodes_to_attack(num_attack);
-    int ind = 0;
-    while (ind < num_attack) {
-        int id = rand() % mmax;
-        if (check[id]) continue;
-        nodes_to_attack[ind++] = id;
-        check[id] = 1;
-        ind++;
-    }
-    for (int id : nodes_to_attack) attack(graph, id);
+    for (int i = 0; i < num_attack; i++) attack(graph, random_node_ids[i]);
     return NetWork(graph);
 }
 
@@ -310,18 +321,17 @@ std::tuple<int, int> NetWork::number_of_scc_and_nodes_in_largest_scc() {
 }
 
 void NetWork::draw_network(string s) {
-    // Py_Initialize();
-    // PyRun_SimpleString("import matplotlib.pyplot as plt");
     /*
      * Add vertices to the graph.
      */
+    PyRun_SimpleString("plt.figure(figsize=(20,8),dpi=80)");
     for (auto [id, node] : nodes) {
         std::string command = "";
         command += "plt.scatter(";
         command += std::to_string(node.x);
         command += ",";
         command += std::to_string(node.y);
-        command += ", s = 10)";
+        command += ", s = 20)";
 
         PyRun_SimpleString(command.c_str());
     }
@@ -340,21 +350,17 @@ void NetWork::draw_network(string s) {
             command += std::to_string(node.y);
             command += ",";
             command += std::to_string(nodes[ind].y);
-            command += "], color=\"grey\")";
+            command += "], color=\"blue\")";
             PyRun_SimpleString(command.c_str());
         }
     }
-    PyRun_SimpleString("plt.title(\"Network Structure\")");
+    PyRun_SimpleString("plt.title(\"NetWork Structure\")");
     string command = "plt.savefig(\"" + s + "\")";
     PyRun_SimpleString(command.c_str());
     PyRun_SimpleString("plt.close()");
-    // PyRun_SimpleString("plt.show()");
-    // Py_Finalize();
 }
 
 void NetWork::draw_degree_distribution(string s) {
-    // Py_Initialize();
-    // PyRun_SimpleString("import matplotlib.pyplot as plt");
     auto deg_and_cnt = degree_distribution();
 
     int ind = 0;
@@ -369,7 +375,7 @@ void NetWork::draw_degree_distribution(string s) {
     arr_x += "]";
     arr_y += "]";
 
-    string command = "plt.bar(" + arr_x + "," + arr_y + "," + ")";
+    string command = "plt.bar(" + arr_x + "," + arr_y + ")";
     PyRun_SimpleString(command.c_str());
     PyRun_SimpleString("plt.legend()");
     PyRun_SimpleString("plt.xlabel(\"Degree\")");
@@ -378,9 +384,193 @@ void NetWork::draw_degree_distribution(string s) {
     command = "plt.savefig(\"" + s + "\")";
     PyRun_SimpleString(command.c_str());
     PyRun_SimpleString("plt.close()");
-    // PyRun_SimpleString("plt.show()");
-    // PyRun_SimpleString("plt.close()");
-    // Py_Finalize();
 }
 
 
+void NetWork::draw_coreness_distribution(string s) {
+    int n = nodes.size();
+    vector<int> coreness = coreness_of_each_node();
+    unordered_map<int, int> mp;
+    for (int i = 0; i < n; i++) mp[coreness[i]]++;
+    string arr_x = "[";
+    string arr_y = "[";
+    int ind = 0;
+    for (auto [core, cnt] : mp) {
+        if (ind) arr_x += ",", arr_y += ",";
+        arr_x += to_string(core);
+        arr_y += to_string(cnt);
+        ind++;
+    }
+    arr_x += "]";
+    arr_y += "]";
+    string command = "plt.bar(" + arr_x + "," + arr_y + ")";
+    PyRun_SimpleString(command.c_str());
+    PyRun_SimpleString("plt.legend()");
+    PyRun_SimpleString("plt.xlabel(\"Coreness\")");
+    PyRun_SimpleString("plt.ylabel(\"Count\")");
+    command = "plt.savefig(\"" + s + "\")";
+    PyRun_SimpleString(command.c_str());
+    PyRun_SimpleString("plt.close()");
+}
+
+
+void NetWork::draw_clustering_coefficient_each_node(string s) {
+    int n = nodes.size();
+    vector<double> cs_vals(n);
+    for (int i = 0; i < n; i++) cs_vals[i] = cluster_coefficient_node(i);
+    string arr_x = "[";
+    string arr_y = "[";
+    for (int i = 0; i < n; i++) {
+        if (i) arr_x += ",", arr_y += ",";
+        arr_x += to_string(i);
+        arr_y += to_string(cs_vals[i]);
+    }
+    arr_x += "]", arr_y += "]";
+    string command = "plt.bar(" + arr_x + "," + arr_y + ")";
+    PyRun_SimpleString(command.c_str());
+    PyRun_SimpleString("plt.legend()");
+    PyRun_SimpleString("plt.xlabel(\"Node ID\")");
+    PyRun_SimpleString("plt.ylabel(\"clustering Coefficient\")");
+    command = "plt.savefig(\"" + s + "\")";
+    PyRun_SimpleString(command.c_str());
+    PyRun_SimpleString("plt.close()");
+}
+
+
+void NetWork::draw_shortest_path_length_distribution(string s) {
+    auto dis = shortest_path_of_each_pair_nodes();
+    int n = dis.size();
+    unordered_map<int, int> dis_cnt;
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            if (i == j || dis[i][j] == INT32_MAX) continue;
+            dis_cnt[dis[i][j]]++;
+        }
+    }
+    string arr_x = "[", arr_y = "[";
+    int ind = 0;
+    for (auto [len, cnt] : dis_cnt) {
+        if (ind) arr_x += ",", arr_y += ",";
+        arr_x += to_string(len);
+        arr_y += to_string(cnt);
+        ind++;
+    }
+    arr_x += "]", arr_y += "]";
+    string command = "plt.bar(" + arr_x + "," + arr_y + ")";
+    PyRun_SimpleString(command.c_str());
+    PyRun_SimpleString("plt.legend()");
+    PyRun_SimpleString("plt.xlabel(\"L\")");
+    PyRun_SimpleString("plt.ylabel(\"Count\")");
+    command = "plt.savefig(\"" + s + "\")";
+    PyRun_SimpleString(command.c_str());
+    PyRun_SimpleString("plt.close()");
+}
+
+
+void NetWork::draw_attack_largest_scc_size(string s) {
+    int n = nodes.size();
+    int k = 50;
+    // Random Attack Part
+    vector<int> random_node_ids = generate_random_nodes_id();
+    int p = n / k;
+    auto graph = nodes;
+    vector<int> random_largest_scc_size(k);
+    for (int i = 0; i < k; i++) {
+        for (int j = 0; j < p; j++) attack(graph, random_node_ids[i * p + j]);
+        auto [num_scc, largest_scc] = NetWork(graph).number_of_scc_and_nodes_in_largest_scc();
+        random_largest_scc_size[i] = largest_scc;
+    }
+
+    // Intentional Attack Part
+    vector<int> intentional_node_ids = generate_intentional_nodes_id();
+    graph = nodes;
+    vector<int> intentional_largest_scc_size(k);
+    for (int i = 0; i < k; i++) {
+        for (int j = 0; j < p; j++) attack(graph, intentional_node_ids[i * p + j]);
+        auto [num_scc, largest_scc] = NetWork(graph).number_of_scc_and_nodes_in_largest_scc();
+        intentional_largest_scc_size[i] = largest_scc;
+    }
+
+    vector<double> x_arr(k);
+    for (double i = 0; i < k; i++) x_arr[i] = i / k;
+
+    string arr_x = "[";
+    string arr_random_attack = "[";
+    string arr_intentional_attack = "[";
+
+    for (int i = 0; i < k; i++) {
+        if (i) arr_x += ",", arr_random_attack += ",", arr_intentional_attack += ",";
+        arr_x += to_string(x_arr[i]);
+        arr_random_attack += to_string(random_largest_scc_size[i]);
+        arr_intentional_attack += to_string(intentional_largest_scc_size[i]);
+    }
+    arr_x += "]", arr_random_attack += "]", arr_intentional_attack += "]";
+
+    // std::cout << arr_x << std::endl;
+    // std::cout << arr_random_attack << std::endl;
+    // std::cout << arr_intentional_attack << std::endl;
+
+    string command = "plt.plot(" + arr_x + "," + arr_random_attack + "," + "\"b*-\", label = \"random attack\")";
+    PyRun_SimpleString(command.c_str());
+    command = "plt.plot(" + arr_x + "," + arr_intentional_attack + "," + "\"y*-\", label = \"intentional attack\")";
+    PyRun_SimpleString(command.c_str());
+    PyRun_SimpleString("plt.xlabel(\"f\")");
+    PyRun_SimpleString("plt.ylabel(\"S\")");
+    PyRun_SimpleString("plt.legend()");
+    PyRun_SimpleString("plt.title(\"Largest SCC Size After Attack\")");
+    command = "plt.savefig(\"" + s + "\")";
+    PyRun_SimpleString(command.c_str());
+    PyRun_SimpleString("plt.close()");
+}
+
+void NetWork::draw_attack_average_path_length(string s) {
+    int n = nodes.size();
+    int k = 50;
+    // Random Attack Part
+    vector<int> random_node_ids = generate_random_nodes_id();
+    int p = n / k;
+    vector<double> random_avg_path_len(k);
+    auto graph = nodes;
+    for (int i = 0; i < k; i++) {
+        for (int j = 0; j < p; j++) attack(graph, random_node_ids[i * p + j]);
+        auto [avg_path, diameter] = NetWork(graph).average_path_length_and_diameter();
+        random_avg_path_len[i] = avg_path;
+    }
+
+    // Intentional Attack Part
+    vector<int> intentional_node_ids = generate_intentional_nodes_id();
+    graph = nodes;
+    vector<double> intentional_avg_path_len(k);
+    for (int i = 0; i < k; i++) {
+        for (int j = 0; j < p; j++) attack(graph, intentional_node_ids[i * p + j]);
+        auto [avg_path, diameter] = NetWork(graph).average_path_length_and_diameter();
+        intentional_avg_path_len[i] = avg_path;
+    }
+
+    vector<double> x_arr(k);
+    for (double i = 0; i < k; i++) x_arr[i] = i / k;
+
+    string arr_x = "[";
+    string arr_random_attack = "[";
+    string arr_intentional_attack = "[";
+
+    for (int i = 0; i < k; i++) {
+        if (i) arr_x += ",", arr_random_attack += ",", arr_intentional_attack += ",";
+        arr_x += to_string(x_arr[i]);
+        arr_random_attack += to_string(random_avg_path_len[i]);
+        arr_intentional_attack += to_string(intentional_avg_path_len[i]);
+    }
+    arr_x += "]", arr_random_attack += "]", arr_intentional_attack += "]";
+
+    string command = "plt.plot(" + arr_x + "," + arr_random_attack + "," + "\"b*-\", label = \"random attack\")";
+    PyRun_SimpleString(command.c_str());
+    command = "plt.plot(" + arr_x + "," + arr_intentional_attack + "," + "\"y*-\", label = \"intentional attack\")";
+    PyRun_SimpleString(command.c_str());
+    PyRun_SimpleString("plt.xlabel(\"f\")");
+    PyRun_SimpleString("plt.ylabel(\"L\")");
+    PyRun_SimpleString("plt.legend()");
+    PyRun_SimpleString("plt.title(\"Average Path Length After Attack\")");
+    command = "plt.savefig(\"" + s + "\")";
+    PyRun_SimpleString(command.c_str());
+    PyRun_SimpleString("plt.close()");
+}

@@ -15,6 +15,7 @@ int main(int argc, char **argv) {
     else printf("Find file\n");
     f.open(QFile::ReadOnly | QFile::Text);
     QTextStream ts(&f);
+    srand(time(0));
     app.setStyleSheet(ts.readAll());
     // MainWindow window;
     // Ui::Form ui;

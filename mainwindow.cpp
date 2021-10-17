@@ -7,6 +7,7 @@ mainwindow::mainwindow(QWidget *parent) :
     ui(new Ui::mainwindow())
 {
     ui->setupUi(this);
+    setWindowTitle("MainWindow");
 
     // click button `button_search_dataset` and open directories.
     // read select file and compute number of nodes, edges.
@@ -34,6 +35,11 @@ mainwindow::mainwindow(QWidget *parent) :
     connect(ui->button_scc, SIGNAL(clicked()), this, SLOT(show_num_scc_and_largest_scc()));
     connect(ui->button_random_attack, SIGNAL(clicked()), this, SLOT(random_attack()));
     connect(ui->button_intentional_attack, SIGNAL(clicked()), this, SLOT(intentional_attack()));
+
+    connect(ui->button_attack_largest_scc, SIGNAL(clicked()), this, SLOT(draw_attack_largest_scc_size()));
+    connect(ui->button_attack_avg_path, SIGNAL(clicked()), this, SLOT(draw_attack_average_path_length()));
+
+    connect(ui->button_clear, SIGNAL(clicked()), this, SLOT(clear_all()));
 }
 
 mainwindow::~mainwindow()
@@ -66,7 +72,11 @@ void mainwindow::show_number_of_edges() {
 void mainwindow::draw_network() {
     string s = "original_network_structure.jpg";
     net.draw_network(s);
-    ui->image_area->setPixmap(QPixmap(QString::fromStdString(s)));
+    int width = ui->image_area->width();
+    int height = ui->image_area->height();
+    QPixmap pixmap = QPixmap(QString::fromStdString(s));
+    QPixmap fitpixmap = pixmap.scaled(width, height, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+    ui->image_area->setPixmap(fitpixmap);
     ui->image_area->show();
 }
 
@@ -128,6 +138,7 @@ void mainwindow::random_attack() {
     auto net_after_attack = net.random_attack(per);
     Attack_UI *attack_window = new Attack_UI;
     attack_window->init(net_after_attack, 1);
+    attack_window->setWindowTitle("Random Attack");
     attack_window->show();
 }
 
@@ -136,5 +147,40 @@ void mainwindow::intentional_attack() {
     auto net_after_attack = net.intentional_attack(degree);
     Attack_UI *attack_window = new Attack_UI;
     attack_window->init(net_after_attack, 2);
+    attack_window->setWindowTitle("Intentional Attack");
     attack_window->show();
+}
+
+void mainwindow::draw_attack_largest_scc_size() {
+    string s = "attack_largest_scc_size.jpg";
+    net.draw_attack_largest_scc_size(s);
+    ui->image_area->setPixmap(QPixmap(QString::fromStdString(s)));
+    ui->image_area->show();
+}
+
+void mainwindow::draw_attack_average_path_length() {
+    string s = "attack_average_path_length.jpg";
+    net.draw_attack_average_path_length(s);
+    ui->image_area->setPixmap(QPixmap(QString::fromStdString(s)));
+    ui->image_area->show();
+}
+
+void mainwindow::clear_all() {
+    ui->node_number->clear();
+    ui->edge_number->clear();
+    ui->node_degree->clear();
+    ui->average_degree->clear();
+    ui->node_cs->clear();
+    ui->graph_cs->clear();
+    ui->node_coreness->clear();
+    ui->graph_coreness->clear();
+    ui->average_path_length->clear();
+    ui->diameter->clear();
+    ui->scc_number->clear();
+    ui->largest_scc->clear();
+    ui->degree_node_id->cleanText();
+    ui->cs_node_id->cleanText();
+    ui->coreness_node_id->cleanText();
+    ui->random_attack_percent->cleanText();
+    ui->intentional_attack_degree->cleanText();
 }

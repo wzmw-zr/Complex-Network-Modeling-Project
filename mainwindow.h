@@ -75,6 +75,10 @@ public slots:
 
     void random_attack();
     void intentional_attack();
+    void draw_attack_largest_scc_size();
+    void draw_attack_average_path_length();
+
+    void clear_all();
 
 private:
     Ui::mainwindow *ui;

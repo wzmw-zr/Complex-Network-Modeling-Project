@@ -38,7 +38,11 @@ void Attack_UI::draw_network() {
     string path = (mode == 1 ? "random_attack_" : "intentional_attack_");
     path += "network_structure.jpg";
     net.draw_network(path);
-    ui->image_area->setPixmap(QPixmap(QString::fromStdString(path)));
+    int width = ui->image_area->width();
+    int height = ui->image_area->height();
+    QPixmap pixmap = QPixmap(QString::fromStdString(path));
+    QPixmap fitpixmap = pixmap.scaled(width, height, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+    ui->image_area->setPixmap(fitpixmap);
     ui->image_area->show();
 }
 

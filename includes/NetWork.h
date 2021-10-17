@@ -22,6 +22,8 @@
 #include <algorithm>
 #include <tuple>
 #include <ctime>
+#include <chrono>
+#include <random>
 
 using std::string;
 using std::pair;
@@ -33,6 +35,7 @@ using std::queue;
 using std::priority_queue;
 using std::sort;
 using std::max;
+using std::to_string;
 
 struct UnionSet {
     int n;
@@ -76,13 +79,17 @@ struct NetWork {
     vector<PII> degree_distribution();
     void dijstra(int id, vector<vector<int>> &dis);
     void bfs(int id, vector<vector<int>> &dis);
+    vector<vector<int>> shortest_path_of_each_pair_nodes();
     tuple<double, int> average_path_length_and_diameter();
     double cluster_coefficient_node(int id);
     double cluster_coefficient_graph();
     void remove_k_degree_nodes(int k, unordered_map<int, Node> &graph, vector<int> &coreness, int &rest);
     int coreness_of_node(int id);
+    vector<int> coreness_of_each_node();
     int coreness_of_graph();
     void attack(unordered_map<int, Node> &graph, int id);
+    vector<int> generate_random_nodes_id();
+    vector<int> generate_intentional_nodes_id();
     NetWork random_attack(int percent);
     // TODO: add attack mode like `attack cetain degree` or `attack certain coreness`
     NetWork intentional_attack(int degree);
@@ -94,6 +101,14 @@ struct NetWork {
     tuple<int, int> number_of_scc_and_nodes_in_largest_scc();
     void draw_network(string s);
     void draw_degree_distribution(string s);
+    // TODO
+    void draw_coreness_distribution(string s);
+    void draw_shortest_path_length_distribution(string s);
+
+    void draw_clustering_coefficient_each_node(string s);
+
+    void draw_attack_largest_scc_size(string s);
+    void draw_attack_average_path_length(string s);
 };
 
 
