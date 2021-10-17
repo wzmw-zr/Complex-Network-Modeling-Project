@@ -178,9 +178,10 @@ void mainwindow::clear_all() {
     ui->diameter->clear();
     ui->scc_number->clear();
     ui->largest_scc->clear();
-    ui->degree_node_id->cleanText();
-    ui->cs_node_id->cleanText();
-    ui->coreness_node_id->cleanText();
-    ui->random_attack_percent->cleanText();
-    ui->intentional_attack_degree->cleanText();
+    ui->degree_node_id->setValue(1);
+    ui->cs_node_id->setValue(1);
+    ui->coreness_node_id->setValue(1);
+    ui->random_attack_percent->setValue(1);
+    ui->intentional_attack_degree->setValue(1);
+    ui->image_area->clear();
 }
